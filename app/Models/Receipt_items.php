@@ -9,8 +9,13 @@ class Receipt_items extends Model
     protected $fillable =
     [
     'receipt_id',
-    'code',
+    'product_id',
     'quantity',
     'item_total',
     ];
+
+    public function receipt(){
+        return $this->belongsTo(Receipt::class);
+    }
+
 }
