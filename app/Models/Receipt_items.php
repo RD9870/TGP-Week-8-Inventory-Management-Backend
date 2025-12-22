@@ -8,9 +8,9 @@ class Receipt_items extends Model
 {
     protected $fillable =
     [
-    "receipt_id",
-    "code",
-    "quantity",
-    "item_total",
+    'receipt_id',
+    'code',
+    'quantity',
+    'item_total',
     ];
 }
