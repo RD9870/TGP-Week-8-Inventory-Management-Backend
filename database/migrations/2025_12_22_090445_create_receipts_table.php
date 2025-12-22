@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('receipts', function (Blueprint $table) {
             $table->id();
-            $table->int('cashier_id');
+            $table->integer('cashier_id');
             $table->decimal('total',10,2);
             $table->timestamps();
         });
