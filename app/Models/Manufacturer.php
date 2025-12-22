@@ -10,4 +10,8 @@ class Manufacturer extends Model
     [
     'name',
     ];
+     public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

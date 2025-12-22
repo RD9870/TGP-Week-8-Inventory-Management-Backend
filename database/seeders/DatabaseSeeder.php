@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,8 +18,15 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'username' => 'ali',
+            'type'=>'admin',
+            'password'=>Hash::make('password')
         ]);
+         User::factory()->create([
+    'username' => 'manager',
+    'type' => 'manager',
+    'password' => Hash::make('manager123'),
+    'salary' => 800
+]);
     }
 }

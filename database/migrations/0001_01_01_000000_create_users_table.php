@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->decimal('salary', 10, 2);
+            $table->decimal('salary', 10, 2)->default(0);
             $table->enum('type', ['admin', 'manager', 'cashier']);
             $table->rememberToken();
             $table->timestamps();
