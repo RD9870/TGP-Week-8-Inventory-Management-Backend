@@ -30,4 +30,8 @@ class Product extends Model
     {
         return $this->belongsTo(Subcategory::class ,'subcategory_id');
     }
+ public function stock()
+    {
+        return $this->hasOne(Stock::class);
+    }
 }

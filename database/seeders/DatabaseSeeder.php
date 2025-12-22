@@ -28,5 +28,11 @@ class DatabaseSeeder extends Seeder
     'password' => Hash::make('manager123'),
     'salary' => 800
 ]);
+User::factory()->create([
+            'username' => 'cashier1',
+            'type' => 'cashier',
+            'password' => Hash::make('cashier123'),
+            'salary' => 500
+        ]);
     }
 }
