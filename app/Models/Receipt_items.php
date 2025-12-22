@@ -8,14 +8,19 @@ class Receipt_items extends Model
 {
     protected $fillable =
     [
-    'receipt_id',
+    'recipt_id',
     'product_id',
     'quantity',
     'item_total',
     ];
 
-    public function receipt(){
-        return $this->belongsTo(Receipt::class);
+   public function receipt()
+{
+    return $this->belongsTo(Receipt::class, 'recipt_id'); // ← نفس الشيء
+}
+public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 
 }

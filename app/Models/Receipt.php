@@ -11,7 +11,8 @@ class Receipt extends Model
     'cashier_id',
     'total',
     ];
-    public function items(){
-      return $this->hasMany(Receipt_items::class);
-    }
+    public function items()
+{
+    return $this->hasMany(Receipt_items::class, 'recipt_id');
+}
 }

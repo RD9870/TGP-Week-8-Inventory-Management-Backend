@@ -22,15 +22,26 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(ProductRequest $request)
-    {
+{
     $data = $request->validated();
 
-    $data['isStockLow'] = $request->quantity < 10;
 
-        $product = Product::create($data);
+    $product = Product::create($data);
 
-        return response()->json($product, 201);
-    }
+
+    $product->stock()->create([
+        'quantity' => $request->quantity,
+        'cost_price' => $request->cost_price,
+        'minimum' => $request->minimum,
+        'expiration_date' => $request->expiration_date,
+        'isStockLow' => $request->quantity < $request->minimum,
+    'isProductExpired' => now()->gt($request->expiration_date), // ← يتحقق من انتهاء الصلاحية
+    ]);
+
+    return response()->json([
+        'message' => 'Product and stock created successfully',
+        'product' => $product->load('stock')], 201);
+}
 
     /**
      * Display the specified resource.

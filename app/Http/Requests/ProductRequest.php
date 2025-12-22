@@ -29,7 +29,10 @@ class ProductRequest extends FormRequest
             'manufacture_id'=>['required','integer','exists:manufacturers,id'],
             'import_company_id'=>['required','integer','exists:import_companies,id'],
             'image'=>['string'],
-
+            'quantity' => 'required|integer|min:0',
+            'cost_price' => 'required|numeric|min:0',
+            'minimum' => 'required|integer|min:0',
+            'expiration_date' => 'required|date',
         ];
 
     }
