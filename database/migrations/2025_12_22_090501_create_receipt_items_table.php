@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('code');
             $table->integer('quantity');
             $table->decimal('total',10,2);
+             $table->timestamps();
         });
     }
 

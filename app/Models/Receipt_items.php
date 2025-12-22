@@ -13,4 +13,8 @@ class Receipt_items extends Model
     'quantity',
     'item_total',
     ];
+
+    public function receipt(){
+        return $this->belongsTo(Receipt::class);
+    }
 }

@@ -8,7 +8,11 @@ class Receipt extends Model
 {
     protected $fillable =
     [
-    "cashier_id",
-    "total",
+    'cashier_id',
+    'total',
     ];
+
+    public function items(){
+                return $this->hasMany(Receipt_items::class);
+    }
 }
