@@ -4,16 +4,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckUserRole;
 use App\Http\Controllers\AuthController;
-<<<<<<< HEAD
-// use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\AdminMiddleware;
+
+// use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\CategoryController;
+// use App\Http\Controllers\SubcategoryController;
+// use App\Http\Controllers\UserController;
+// use App\Http\Middleware\AdminMiddleware;
 // use App\Http\Middleware\ManagerMiddleware;
-=======
-use App\Http\Controllers\ReceiptController;
->>>>>>> b095bf80761da70ef6e82bbfe259fa00a469a606
+
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -32,11 +35,15 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::put('products/{id}', [ProductController::class, 'update'])->middleware(CheckUserRole::class.':admin');
 
     Route::delete('products/{id}', [ProductController::class, 'destroy'])->middleware(CheckUserRole::class.':admin');
-<<<<<<< HEAD
+Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([CheckUserRole::class . ':cashier']);
+
 });
 
+
+
+
 //admin routes
-Route::prefix('admin')->middleware(['auth:sanctum',AdminMiddleware::class])->group(function(){
+Route::prefix('admin')->middleware(['auth:sanctum',AuthController::class])->group(function(){
     // //rout that gets all books and if the request has a cat param only books with that cat is shown
     // Route::apiResource('book',CustomerBookController::class)->only(['index','show']);
     // //route to show all the cart items and remove a cart item
@@ -87,9 +94,10 @@ Route::prefix('admin')->middleware(['auth:sanctum',AdminMiddleware::class])->gro
 // Route::prefix('manager')->middleware(['auth:sanctum', ManagerMiddleware::class])->group(function(){
 //     //category crud route
 //         Route::apiResource('categories',CategoryController::class)->only(['index','show','store']);
-=======
-Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([CheckUserRole::class . ':cashier']);
 
-});
 
->>>>>>> b095bf80761da70ef6e82bbfe259fa00a469a606
+
+
+
+
+
