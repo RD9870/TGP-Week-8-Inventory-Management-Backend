@@ -10,19 +10,29 @@ class Product extends Model
     [
     'code',
     'name',
-    'category_id',
+    'subcategory_id',
     'price',
     'manufacture_id',
     'import_company_id',
     'image',
     ];
-
-    public function stock(){
-        return $this->hasMany(Stock::class);
+       public function manufacture()
+    {
+        return $this->belongsTo(Manufacturer::class, 'manufacture_id');
     }
 
-public function subCategory(){
-                return $this->belongsTo(Subcategory::class);
+    public function importCompany()
+    {
+        return $this->belongsTo(ImportCompany::class, 'import_company_id');
     }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(Subcategory::class ,'subcategory_id');
+    }
+
+    //     public function stock(){
+    //     return $this->hasMany(Stock::class);
+    // }
 
 }
