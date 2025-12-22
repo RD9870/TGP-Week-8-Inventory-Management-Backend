@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+             $table->string('code')->unique();
+             $table->integer('quantity');
+            $table->decimal('cost_price', 10, 2);
+            $table->integer('minimum');
+           $table->date('expiration_date');
+          $table->boolean('isStockLow')->default(false);
+          $table->boolean('isProductExpired')->default(false);
             $table->timestamps();
         });
     }
