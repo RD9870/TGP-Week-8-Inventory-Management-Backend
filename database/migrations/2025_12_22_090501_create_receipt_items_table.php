@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('receipt_items', function (Blueprint $table) {
             $table->id();
             $table->integer('recipt_id');
-            $table->integer('code');
+            $table->integer('product_id');
             $table->integer('quantity');
             $table->decimal('total',10,2);
              $table->timestamps();

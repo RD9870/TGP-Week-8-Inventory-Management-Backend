@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-             $table->string('code')->unique();
+            //بدل code
+             $table->integer('product_id');
              $table->integer('quantity');
             $table->decimal('cost_price', 10, 2);
             $table->integer('minimum');

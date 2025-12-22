@@ -8,7 +8,7 @@ class Stock extends Model
 {
       protected $fillable =
     [
-    'code',
+    'product_id',
     'quantity',
     'cost_price',
     'minimum',
@@ -16,4 +16,9 @@ class Stock extends Model
     'isStockLow',
     'isProductExpired',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
