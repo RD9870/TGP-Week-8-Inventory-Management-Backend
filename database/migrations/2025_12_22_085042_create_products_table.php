@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
              $table->string('code')->unique();
             $table->string('name');
-            $table->integer('category_id');
+            $table->integer('subcategory_id');
              $table->decimal('price', 10, 2);
              $table->integer('manufacture_id');
              $table->integer('import_company_id');
