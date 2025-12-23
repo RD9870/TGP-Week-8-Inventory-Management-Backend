@@ -19,7 +19,7 @@ class ReceiptController extends Controller
             'items.*.quantity' => 'required|integer|min:1',
         ]);
 
-        $cashierId = auth()->id();
+        $cashierId = Auth::id();
 
         $groupedItems = [];
         foreach ($request->items as $item) {

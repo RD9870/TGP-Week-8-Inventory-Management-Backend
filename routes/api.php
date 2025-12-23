@@ -29,4 +29,16 @@ Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([Check
     Route::get('/detailed', [ProfitController::class, 'detailedProfits']);
 
 });
+//admin routes
+    Route::apiResource('users',UserController::class); //->middleware(CheckUserRole::class.':admin,manager');
+    //category crud route
+    Route::apiResource('categories',CategoryController::class);
+    //subcategory crud route
+    Route::apiResource('subcategories',SubcategoryController::class);
 
+
+//manager routes
+    //category crud route
+    Route::apiResource('categories',CategoryController::class)->only(['index','show','store']);
+    //subcategory crud route
+    Route::apiResource('subcategories',SubcategoryController::class)->only(['index','show','store']);
