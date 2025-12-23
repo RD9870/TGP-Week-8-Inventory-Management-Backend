@@ -17,10 +17,6 @@ return new class extends Migration
              $table->integer('product_id');
              $table->integer('quantity');
             $table->decimal('cost_price', 10, 2);
-            $table->integer('minimum');
-           $table->date('expiration_date');
-          $table->boolean('isStockLow')->default(false);
-          $table->boolean('isProductExpired')->default(false);
             $table->timestamps();
         });
     }

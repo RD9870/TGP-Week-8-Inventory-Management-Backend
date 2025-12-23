@@ -5,14 +5,30 @@ use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Receipt;
+use App\Models\Receipt_items;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+            if ($request->has('q')) {
+
+                $request->validate([
+                    'q'=> 'required|string|min:1'
+                ]);
+                $keyWord = $request->q;
+
+                $results = Product::where('name','like' ,"%{$keyWord}%")->get();
+
+                    return response()->json($results);
+
+            }
        $products = Product::with(['subcategory', 'manufacture', 'importCompany']) ->paginate(10);
 
     return response()->json($products);
@@ -94,5 +110,26 @@ class ProductController extends Controller
         'message' => 'Product deleted successfully'
     ], 200);
 }
+
+public function productsOverview(int $limit){
+    $bestProducts = Receipt_items::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+    ->groupBy('product_id')
+    ->orderBy('total_quantity', 'desc')
+    ->limit($limit)
+    ->get();
+
+    $worstProducts = Receipt_items::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+    ->groupBy('product_id')
+    ->orderBy('total_quantity', 'ASC')
+    ->limit($limit)
+    ->get();
+
+
+    return response()->json(
+        ['best sellers' => $bestProducts,
+        'worst sellers' => $worstProducts,]
+    );
+}
+
 
 }

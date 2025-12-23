@@ -26,6 +26,8 @@ Route::middleware('auth:sanctum')->group(function() {
 Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([CheckUserRole::class . ':cashier']);
     Route::get('/monthly-rate', [ProfitController::class, 'monthlyProfitRate']);
     Route::get('/detailed', [ProfitController::class, 'detailedProfits']);
+        // Route::get('products', [ProductController::class, 'searchForProduct'])->middleware(CheckUserRole::class.':admin,manager');
+
 
     //admin routes
     Route::apiResource('users',UserController::class)->middleware(CheckUserRole::class.':admin');
@@ -33,6 +35,9 @@ Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([Check
     Route::apiResource('categories',CategoryController::class)->middleware(CheckUserRole::class.':admin');
     //subcategory crud route
     Route::apiResource('subcategories',SubcategoryController::class)->middleware(CheckUserRole::class.':admin');
+    //get the top and bottom products
+    Route::get('products/overview/{limit}', [ProductController::class,"productsOverview"])->middleware(CheckUserRole::class.':admin');
+
 
 
 //manager routes

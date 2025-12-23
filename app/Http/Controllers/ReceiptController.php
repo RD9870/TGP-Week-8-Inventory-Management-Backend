@@ -79,9 +79,16 @@ class ReceiptController extends Controller
 
                 $stock->decrement('quantity', $quantity);
 
-                if ($stock->quantity < $stock->minimum) {
-                    $stock->isStockLow = true;
-                    $stock->save();
+                // if ($stock->quantity < $stock->minimum) {
+                //     $stock->isStockLow = true;
+                //     $stock->save();
+                // }
+
+                //TODO here
+                $stockAmmount = Stock::where('product_id', $productId)->sum('quantity');
+                if ($stockAmmount  < $product->minimum) {
+                    $product->isStockLow = true;
+                    $product->save();
                 }
             }
 
