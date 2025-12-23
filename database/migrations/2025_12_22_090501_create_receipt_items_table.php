@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('recipt_id');
             $table->integer('product_id');
             $table->integer('quantity');
-            $table->decimal('total',10,2);
+            $table->decimal('item_total', 10, 2)->default(0);
             $table->timestamps();
         });
     }
