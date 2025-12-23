@@ -15,6 +15,8 @@ class Product extends Model
     'manufacture_id',
     'import_company_id',
     'image',
+    'minimum',
+    'isStockLow',
     ];
        public function manufacture()
     {

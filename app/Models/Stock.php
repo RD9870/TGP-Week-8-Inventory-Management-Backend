@@ -11,10 +11,8 @@ class Stock extends Model
     'product_id',
     'quantity',
     'cost_price',
-    'minimum',
-    'expiration_date',
-    'isStockLow',
-    'isProductExpired',
+    // 'minimum',
+    // 'isStockLow',
     ];
 
     public function product()

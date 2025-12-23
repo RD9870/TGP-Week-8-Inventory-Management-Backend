@@ -42,16 +42,22 @@ class ProductController extends Controller
     $data = $request->validated();
 
 
-    $product = Product::create($data);
+    $product = Product::create([
+            'code'=> $request->code,
+            'name'=> $request->name,
+            'subcategory_id'=> $request->subcategory_id,
+            'price'=> $request->price,
+            'manufacture_id'=> $request->manufacture_id,
+            'import_company_id'=> $request->import_company_id,
+            'minimum'=> $request->minimum,
+    ]);
 
 
     $product->stock()->create([
         'quantity' => $request->quantity,
         'cost_price' => $request->cost_price,
-        'minimum' => $request->minimum,
-        'expiration_date' => $request->expiration_date,
+        // 'minimum' => $request->minimum,
         'isStockLow' => $request->quantity < $request->minimum,
-    'isProductExpired' => now()->gt($request->expiration_date),
     ]);
 
     return response()->json([

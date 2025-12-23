@@ -32,7 +32,6 @@ class ProductRequest extends FormRequest
             'quantity' => 'required|integer|min:0',
             'cost_price' => 'required|numeric|min:0',
             'minimum' => 'required|integer|min:0',
-            'expiration_date' => 'required|date',
         ];
 
     }
