@@ -22,6 +22,9 @@ class SubcategoryController extends Controller
      */
     public function store(SubcategoryRequest $request)
     {
+        $existing = Subcategory::where('name', $request->name)
+                           ->where('category_id', $request->category_id)
+                           ->first();
         $newSubcat =Subcategory::create($request->validated());
             return response()->json([
                 'message'=>'new subcategory created',

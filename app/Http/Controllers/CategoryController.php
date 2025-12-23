@@ -23,6 +23,14 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+         $existing = Category::where('name', $request->name)->first();
+
+    if ($existing) {
+        return response()->json([
+            'message' => 'Category with this name already exists',
+            'category' => $existing
+        ], 409);
+    }
         $newCat =Category::create($request->validated());
         return response()->json([
             'message'=>'category created',
