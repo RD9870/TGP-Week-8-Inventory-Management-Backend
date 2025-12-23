@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Stock;
 use App\Models\Receipt;
 use App\Models\ReceiptItem;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReceiptController extends Controller

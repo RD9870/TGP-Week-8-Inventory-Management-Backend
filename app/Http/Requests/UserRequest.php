@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ReceiptItemRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,13 +22,13 @@ class ReceiptItemRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isCreate = $this->isMethod('Post');
+        $requirement = $isCreate? "required" : "sometimes";
         return [
-            'receipt_id'=>['required','integer'],
-            'quantity'=>['required','integer'],
-            'code'=>['required','string'],
-            'item_total'=>['required','numeric'],
-
-
+            'username'=>[$requirement,'string'],
+            'password'=>[$requirement,'string'],
+            'salary'=>[$requirement,'decimal:0,2'],
+            'type'=>[$requirement,'string', Rule::in(['cashier', 'manager'])],
         ];
     }
 }

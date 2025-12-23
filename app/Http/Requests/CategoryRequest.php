@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReceiptItemRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,13 +21,10 @@ class ReceiptItemRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isCreate = $this->isMethod('Post');
+        $requirement = $isCreate? "required" : "sometimes";
         return [
-            'receipt_id'=>['required','integer'],
-            'quantity'=>['required','integer'],
-            'code'=>['required','string'],
-            'item_total'=>['required','numeric'],
-
-
+            'name'=>[$requirement,'string'],
         ];
     }
 }
