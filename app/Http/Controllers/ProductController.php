@@ -11,12 +11,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-       $products = Product::with(['subcategory', 'manufacture', 'importCompany']) ->paginate(10);
+public function index(Request $request)
+{
+    $query = Product::with(['subcategory', 'manufacture', 'importCompany']);
+
+    if ($request->has('subcategory_id')) {
+        $query->where('subcategory_id', $request->subcategory_id);
+    }
+
+    $products = $query->paginate(10);
 
     return response()->json($products);
-    }
+}
 
     /**
      * Store a newly created resource in storage.
