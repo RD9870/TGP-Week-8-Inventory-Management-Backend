@@ -9,15 +9,6 @@ use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
 
-// use App\Http\Controllers\AuthController;
-// use App\Http\Controllers\CategoryController;
-// use App\Http\Controllers\SubcategoryController;
-// use App\Http\Controllers\UserController;
-// use App\Http\Middleware\AdminMiddleware;
-// use App\Http\Middleware\ManagerMiddleware;
-
-
-
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -27,23 +18,80 @@ Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logou
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('products', [ProductController::class, 'index'])->middleware(CheckUserRole::class.':admin,manager');
-
     Route::get('products/{id}', [ProductController::class, 'show'])->middleware(CheckUserRole::class.':admin,manager');
-
     Route::post('products', [ProductController::class, 'store'])->middleware(CheckUserRole::class.':admin,manager');
-
     Route::put('products/{id}', [ProductController::class, 'update'])->middleware(CheckUserRole::class.':admin');
-
     Route::delete('products/{id}', [ProductController::class, 'destroy'])->middleware(CheckUserRole::class.':admin');
-Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([CheckUserRole::class . ':cashier']);
+    //    Route::apiResource('products',ProductController::class);
+    Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([CheckUserRole::class . ':cashier']);
+
+
+
+//admin routes
+    Route::apiResource('users',UserController::class); //->middleware(CheckUserRole::class.':admin,manager');
+    //category crud route
+    Route::apiResource('categories',CategoryController::class);
+    //subcategory crud route
+    Route::apiResource('subcategories',SubcategoryController::class);
+
+
+//manager routes
+    //category crud route
+    Route::apiResource('categories',CategoryController::class)->only(['index','show','store']);
+    //subcategory crud route
+    Route::apiResource('subcategories',SubcategoryController::class)->only(['index','show','store']);
 
 });
 
 
 
+// <?php
+// use App\Http\Controllers\ProductController;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Route;
+// use App\Http\Middleware\CheckUserRole;
+// // use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\CategoryController;
+// use App\Http\Controllers\ReceiptController;
+// use App\Http\Controllers\SubcategoryController;
+// use App\Http\Controllers\UserController;
+
+// use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\CategoryController;
+// use App\Http\Controllers\SubcategoryController;
+// use App\Http\Controllers\UserController;
+// use App\Http\Middleware\AdminMiddleware;
+// use App\Http\Middleware\ManagerMiddleware;
+
+
+
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
+
+// Route::post('login', [AuthController::class, 'login']);
+// Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+
+// Route::middleware('auth:sanctum')->group(function() {
+//     Route::get('products', [ProductController::class, 'index'])->middleware(CheckUserRole::class.':admin,manager');
+
+//     Route::get('products/{id}', [ProductController::class, 'show'])->middleware(CheckUserRole::class.':admin,manager');
+
+//     Route::post('products', [ProductController::class, 'store'])->middleware(CheckUserRole::class.':admin,manager');
+
+//     Route::put('products/{id}', [ProductController::class, 'update'])->middleware(CheckUserRole::class.':admin');
+
+//     Route::delete('products/{id}', [ProductController::class, 'destroy'])->middleware(CheckUserRole::class.':admin');
+// Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([CheckUserRole::class . ':cashier']);
+
+// });
+
+
+
 
 //admin routes
-Route::prefix('admin')->middleware(['auth:sanctum',AuthController::class])->group(function(){
+// Route::prefix('admin')->middleware(['auth:sanctum',AuthController::class])->group(function(){
     // //rout that gets all books and if the request has a cat param only books with that cat is shown
     // Route::apiResource('book',CustomerBookController::class)->only(['index','show']);
     // //route to show all the cart items and remove a cart item
@@ -54,12 +102,12 @@ Route::prefix('admin')->middleware(['auth:sanctum',AuthController::class])->grou
     // Route::apiResource('orders',OrderController::class);
 
     //User crud route
-        Route::apiResource('users',UserController::class);
+        // Route::apiResource('users',UserController::class);
     //category crud route
-        Route::apiResource('categories',CategoryController::class);
+        // Route::apiResource('categories',CategoryController::class);
     //subcategory crud route
-        Route::apiResource('subcategories',SubcategoryController::class);
-});
+        // Route::apiResource('subcategories',SubcategoryController::class);
+// });
 
 
 
@@ -93,11 +141,5 @@ Route::prefix('admin')->middleware(['auth:sanctum',AuthController::class])->grou
 // //manager routes
 // Route::prefix('manager')->middleware(['auth:sanctum', ManagerMiddleware::class])->group(function(){
 //     //category crud route
-//         Route::apiResource('categories',CategoryController::class)->only(['index','show','store']);
-
-
-
-
-
-
+//
 

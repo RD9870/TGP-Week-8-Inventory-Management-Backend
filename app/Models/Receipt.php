@@ -12,6 +12,6 @@ class Receipt extends Model
     'total',
     ];
     public function items(){
-      return $this->hasMany(Receipt_items::class);
+        return $this->hasMany(Receipt_items::class);
     }
 }

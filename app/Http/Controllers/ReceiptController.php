@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Stock;
 use App\Models\Receipt;
 use App\Models\ReceiptItem;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReceiptController extends Controller
@@ -20,8 +21,9 @@ class ReceiptController extends Controller
     'items.*.quantity' => 'required|integer|min:1',
 ]);
 
-
-        $cashierId = auth()->id();
+//TODO SHOW THIS CHANGE
+        // $cashierId = auth()->id();
+        $cashierId = Auth::id();
 
         // تجميع نفس المنتجات
        $groupedItems = [];

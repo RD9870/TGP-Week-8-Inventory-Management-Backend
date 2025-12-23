@@ -25,7 +25,7 @@ class ReceiptItemRequest extends FormRequest
             'receipt_id'=>['required','integer'],
             'quantity'=>['required','integer'],
             'code'=>['required','string'],
-             'item_total'=>['required','numeric'],
+            'item_total'=>['required','numeric'],
 
 
         ];

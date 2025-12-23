@@ -21,9 +21,9 @@ class ReceiptRequest extends FormRequest
      */
     public function rules(): array
     {
-   return [
+    return [
             'cashier_id'=>['required','integer'],
-             'total'=>['required','numeric'],
+            'total'=>['required','numeric'],
 
 
         ];
