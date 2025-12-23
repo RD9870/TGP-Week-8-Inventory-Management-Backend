@@ -16,7 +16,7 @@ class Receipt_items extends Model
 
    public function receipt()
 {
-    return $this->belongsTo(Receipt::class, 'recipt_id'); // ← نفس الشيء
+    return $this->belongsTo(Receipt::class, 'recipt_id');
 }
 public function product()
     {

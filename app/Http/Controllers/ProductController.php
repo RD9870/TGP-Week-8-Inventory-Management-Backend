@@ -35,7 +35,7 @@ class ProductController extends Controller
         'minimum' => $request->minimum,
         'expiration_date' => $request->expiration_date,
         'isStockLow' => $request->quantity < $request->minimum,
-    'isProductExpired' => now()->gt($request->expiration_date), // ← يتحقق من انتهاء الصلاحية
+    'isProductExpired' => now()->gt($request->expiration_date),
     ]);
 
     return response()->json([

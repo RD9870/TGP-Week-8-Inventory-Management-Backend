@@ -21,7 +21,6 @@ class ReceiptController extends Controller
 
         $cashierId = auth()->id();
 
-        // تجميع نفس المنتجات
         $groupedItems = [];
         foreach ($request->items as $item) {
             $productId = $item['product_id'];
@@ -36,7 +35,6 @@ class ReceiptController extends Controller
         try {
             $totalReceipt = 0;
 
-            // إنشاء الفاتورة
             $receipt = Receipt::create([
                 'cashier_id' => $cashierId,
                 'total' => 0,
@@ -71,7 +69,6 @@ class ReceiptController extends Controller
                 $itemTotal = $product->price * $quantity;
                 $totalReceipt += $itemTotal;
 
-                // إنشاء عنصر الفاتورة
                 $receipt->items()->create([
                     'recipt_id' => $receipt->id,
                     'product_id' => $product->id,
@@ -79,17 +76,14 @@ class ReceiptController extends Controller
                     'item_total' => $itemTotal,
                 ]);
 
-                // خصم الكمية من المخزون
                 $stock->decrement('quantity', $quantity);
 
-                // تحديث حالة المخزون المنخفض
                 if ($stock->quantity < $stock->minimum) {
                     $stock->isStockLow = true;
                     $stock->save();
                 }
             }
 
-            // تحديث إجمالي الفاتورة
             $receipt->update([
                 'total' => $totalReceipt
             ]);

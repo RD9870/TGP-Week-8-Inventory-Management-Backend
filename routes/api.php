@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckUserRole;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReceiptController;
+use App\Http\Controllers\ProfitController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -24,6 +25,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::delete('products/{id}', [ProductController::class, 'destroy'])->middleware(CheckUserRole::class.':admin');
 Route::post('/receipts', [ReceiptController::class, 'store'])->middleware([CheckUserRole::class . ':cashier']);
+    Route::get('/monthly-rate', [ProfitController::class, 'monthlyProfitRate']);
+    Route::get('/detailed', [ProfitController::class, 'detailedProfits']);
 
 });
 
