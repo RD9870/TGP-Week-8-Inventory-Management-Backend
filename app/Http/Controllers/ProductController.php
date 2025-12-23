@@ -14,7 +14,6 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-<<<<<<< HEAD
     public function index(Request $request)
     {
 
@@ -30,18 +29,7 @@ class ProductController extends Controller
                     return response()->json($results);
 
             }
-       $products = Product::with(['subcategory', 'manufacture', 'importCompany']) ->paginate(10);
-=======
-public function index(Request $request)
-{
-    $query = Product::with(['subcategory', 'manufacture', 'importCompany']);
-
-    if ($request->has('subcategory_id')) {
-        $query->where('subcategory_id', $request->subcategory_id);
-    }
-
-    $products = $query->paginate(10);
->>>>>>> 2cae052e97e037461676a9f96ae8185a39fb96e7
+    $products = Product::with(['subcategory', 'manufacture', 'importCompany']) ->paginate(10);
 
     return response()->json($products);
 }
