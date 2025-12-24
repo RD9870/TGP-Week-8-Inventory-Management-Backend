@@ -35,6 +35,8 @@ Route::apiResource('users', UserController::class)->middleware([CheckUserRole::c
     Route::apiResource('subcategories',SubcategoryController::class)->middleware(CheckUserRole::class.':admin');
     //get the top and bottom products
     Route::get('products/overview/{limit}', [ProductController::class,"productsOverview"])->middleware(CheckUserRole::class.':admin');
+    //get the number of low stock items
+    Route::get('lowStockCount', [ProductController::class,"lowStockCount"])->middleware(CheckUserRole::class.':admin,manager');
 
 
 
