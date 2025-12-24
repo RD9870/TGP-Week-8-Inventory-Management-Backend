@@ -18,7 +18,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('products', [ProductController::class, 'index'])->middleware(CheckUserRole::class.':admin,manager');
+    Route::get('products', [ProductController::class, 'index'])->middleware(CheckUserRole::class.':admin,manager,cashier');
     Route::get('products/{id}', [ProductController::class, 'show'])->middleware(CheckUserRole::class.':admin,manager');
     Route::post('products', [ProductController::class, 'store'])->middleware(CheckUserRole::class.':admin,manager');
     Route::put('products/{id}', [ProductController::class, 'update'])->middleware(CheckUserRole::class.':admin');
