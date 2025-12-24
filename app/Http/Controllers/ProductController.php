@@ -118,13 +118,15 @@ class ProductController extends Controller
 }
 
 public function productsOverview(int $limit){
-    $bestProducts = Receipt_items::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+    $bestProducts = Receipt_items::join('products', 'receipt_items.product_id', '=', 'products.id')
+        ->select('receipt_items.product_id', 'products.code', 'products.name',DB::raw('SUM(quantity) as total_quantity'))
     ->groupBy('product_id')
     ->orderBy('total_quantity', 'desc')
     ->limit($limit)
     ->get();
 
-    $worstProducts = Receipt_items::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+    $worstProducts = Receipt_items::join('products', 'receipt_items.product_id', '=', 'products.id')
+        ->select( 'receipt_items.product_id', 'products.code', 'products.name', DB::raw('SUM(quantity) as total_quantity'))
     ->groupBy('product_id')
     ->orderBy('total_quantity', 'ASC')
     ->limit($limit)
@@ -134,6 +136,13 @@ public function productsOverview(int $limit){
     return response()->json(
         ['best sellers' => $bestProducts,
         'worst sellers' => $worstProducts,]
+    );
+}
+
+public function lowStockCount(){
+        $count = Product::where('isStockLow', true)->count();
+            return response()->json(
+        ['number-of-low-stock-items' => $count,]
     );
 }
 
