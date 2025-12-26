@@ -10,19 +10,24 @@ use App\Models\Product;
 class ProfitController extends Controller
 {
     public function detailedProfits()
-    {
-        $profits = Receipt_items::with('product')->get()->map(function($item) {
-            $profit = ($item->product->price - $item->product->stock->cost_price) * $item->quantity;
+{
+    $profits = Receipt_items::with('product.stock')
+        ->get()
+        ->groupBy('product_id')
+        ->map(function ($items, $productId) {
+             $firstItem = $items->first();
+            $totalQuantity = $items->sum('quantity');
+
+             $profit = ($firstItem->product->price - $firstItem->product->stock->cost_price) * $totalQuantity;
+
             return [
-                'product' => $item->product->name,
-                'quantity_sold' => $item->quantity,
+                'product' => $firstItem->product->name,
+                'quantity_sold' => $totalQuantity,
                 'profit' => $profit
             ];
-        });
-
-        return response()->json($profits);
-    }
-
+        })->values();
+    return response()->json($profits);
+}
     public function monthlyProfitRate()
     {
         $currentMonth = now()->month;

@@ -17,29 +17,14 @@ class AuthController extends Controller
             'password'=>['required','min:8']
         ]);
 
-
-
-
         $user = User::where('username',$inputs['username'])->first();
 
 
-        // if(!$user || !Hash::check($inputs['password'],$user->password)){
-        //     return response()->json([
-        //         'message'=>'wrong username or password'
-        //     ],401);
-        // }
-
-        if(!$user){
+        if(!$user || !Hash::check($inputs['password'],$user->password)){
             return response()->json([
-                'message'=>'wrong username'
+                'message'=>'wrong username or password'
             ],401);
         }
-        else if(!Hash::check($inputs['password'],$user->password)){
-               return response()->json([
-                'message'=>'wrong password'
-            ],401);
-        }
-
 
         $token = $user->createToken('token')->plainTextToken;
 
@@ -49,8 +34,6 @@ class AuthController extends Controller
         ]);
 
     }
-
-
 
     public function logout(Request $request)
     {

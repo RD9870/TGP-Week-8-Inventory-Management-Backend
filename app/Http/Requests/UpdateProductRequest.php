@@ -15,12 +15,11 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => [
+'code' => [
                 'sometimes',
                 'string',
-                Rule::unique('products', 'code')->ignore($this->route('product')),
+                Rule::unique('products', 'code')->ignore($this->route('id')),
             ],
-
             'name' => ['sometimes', 'string', 'max:255'],
 
             'subcategory_id' => [

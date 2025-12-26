@@ -12,15 +12,27 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+      public function index()
     {
         $categories = Category::all();
         return $categories;
     }
+    public function filtercut()
+    {
+     $categories = Category::with('subcategories')->get();
 
-    /**
-     * Store a newly created resource in storage.
-     */
+$formattedCategories = $categories->map(function ($category) {
+    return [
+        'label' => $category->name,
+        'options' => $category->subcategories->pluck('name')->toArray(),
+    ];
+});
+
+return response()->json([
+    'cats' => $formattedCategories]);
+    }
+
+
     public function store(CategoryRequest $request)
     {
          $existing = Category::where('name', $request->name)->first();

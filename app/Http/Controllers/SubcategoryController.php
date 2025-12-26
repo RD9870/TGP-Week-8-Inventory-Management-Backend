@@ -32,8 +32,7 @@ class SubcategoryController extends Controller
             ], 201);
     }
 
-    //http://127.0.0.1:8000/api/admin/subcategories/{category_id}
-    //shows all the subcategories related to category_id
+
     public function show(string $id)
     {
         $subCategories = Subcategory::where('category_id', $id)->get();

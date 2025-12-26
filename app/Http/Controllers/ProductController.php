@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Receipt;
 use App\Models\Receipt_items;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -29,7 +30,7 @@ class ProductController extends Controller
                     return response()->json($results);
 
             }
-    $products = Product::with(['subcategory', 'manufacture', 'importCompany']) ->paginate(10);
+    $products = Product::with(['subcategory', 'manufacture', 'importCompany']) ->paginate(5);
 
     return response()->json($products);
 }
@@ -56,8 +57,7 @@ class ProductController extends Controller
     $product->stock()->create([
         'quantity' => $request->quantity,
         'cost_price' => $request->cost_price,
-        // 'minimum' => $request->minimum,
-        'isStockLow' => $request->quantity < $request->minimum,
+         'isStockLow' => $request->quantity < $request->minimum,
     ]);
 
     return response()->json([
@@ -119,14 +119,14 @@ class ProductController extends Controller
 
 public function productsOverview(int $limit){
     $bestProducts = Receipt_items::join('products', 'receipt_items.product_id', '=', 'products.id')
-        ->select('receipt_items.product_id', 'products.code', 'products.name',DB::raw('SUM(quantity) as total_quantity'))
+        ->select('receipt_items.product_id', 'products.code', 'products.name', 'products.image', 'products.price', DB::raw('SUM(quantity) as total_quantity'))
     ->groupBy('product_id')
     ->orderBy('total_quantity', 'desc')
     ->limit($limit)
     ->get();
 
     $worstProducts = Receipt_items::join('products', 'receipt_items.product_id', '=', 'products.id')
-        ->select( 'receipt_items.product_id', 'products.code', 'products.name', DB::raw('SUM(quantity) as total_quantity'))
+        ->select( 'receipt_items.product_id', 'products.code', 'products.name', 'products.image', 'products.price', DB::raw('SUM(quantity) as total_quantity'))
     ->groupBy('product_id')
     ->orderBy('total_quantity', 'ASC')
     ->limit($limit)
@@ -140,10 +140,25 @@ public function productsOverview(int $limit){
 }
 
 public function lowStockCount(){
-        $count = Product::where('isStockLow', true)->count();
+        $items = Product::select('image','id','name')->where('isStockLow', true)->get();
             return response()->json(
-        ['number-of-low-stock-items' => $count,]
+        ['number-of-low-stock-items' => $items->count(),
+        'items'=> $items
+        ]
     );
+}
+
+
+public function filterBySub(string $subCat){
+    $sub = Subcategory::select('id')->where('name',$subCat)->first();
+
+    $items = Product::select()->where('subcategory_id', $sub->id)->get();
+
+         return response()->json(
+        ['number-results' => $items->count(),
+        'results'=> $items,
+
+         ]);
 }
 
 
