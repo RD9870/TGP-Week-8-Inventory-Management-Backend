@@ -1,59 +1,141 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="#" target="_blank"><img width="700" height="350" alt="Inventory_Management" src="https://github.com/user-attachments/assets/fc2d7c1b-a0be-440f-b6b2-a0f9708ac519" />
+</a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## 📝 Overview
+This is the backend of a collabrative inventory management website with Role-Based Access Control, where cashiers are allowed to issue receipts, managers are allowed to add and edit products, view statistics, search and filter products and also add and edit categories and subcategories. it also admins are allowed to do the manager tasks plus delete products and categories and view profits in detail.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Static Badge](https://img.shields.io/badge/-laravel-FF2D20?style=plastic&logo=laravel&labelColor=5b5b5b)
+![Static Badge](https://img.shields.io/badge/-PHP-777BB4?style=plastic&logo=php&labelColor=5b5b5b)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🔓 Getting Started
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Clone the repo to your local device and open the project folder in your IDE. 
 
-## Learning Laravel
+```bash
+git clone https://github.com/RD9870/TGP-Week-8-Inventory-Management-Backend.git
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+2. Install all the needed packages and dependencies.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+composer install
+```
 
-## Laravel Sponsors
+3. Create a .env file with the following template.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
 
-### Premium Partners
+APP_LOCALE=en
+APP_FALLBACK_LOCALE=en
+APP_FAKER_LOCALE=en_US
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+APP_MAINTENANCE_DRIVER=file
+# APP_MAINTENANCE_STORE=database
 
-## Contributing
+# PHP_CLI_SERVER_WORKERS=4
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+BCRYPT_ROUNDS=12
 
-## Code of Conduct
+LOG_CHANNEL=stack
+LOG_STACK=single
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_CONNECTION=sqlite //change this to mySQL
+//uncomment the lines below
+# DB_HOST=127.0.0.1 
+# DB_PORT=3306
+# DB_DATABASE=laravel //create a local database and change this to its name
+# DB_USERNAME=root //change this to your username
+# DB_PASSWORD= //change this to your password or leave it empty if you don't have one
 
-## Security Vulnerabilities
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+SESSION_ENCRYPT=false
+SESSION_PATH=/
+SESSION_DOMAIN=null
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+BROADCAST_CONNECTION=log
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=database
 
-## License
+CACHE_STORE=database
+# CACHE_PREFIX=
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MEMCACHED_HOST=127.0.0.1
+
+REDIS_CLIENT=phpredis
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MAIL_MAILER=log
+MAIL_SCHEME=null
+MAIL_HOST=127.0.0.1
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=
+AWS_USE_PATH_STYLE_ENDPOINT=false
+
+VITE_APP_NAME="${APP_NAME}"
+```
+
+4. Generate the key.
+
+```bash
+php artisan key:generate
+```
+
+5. Log in to the MySQL server:
+
+```bash
+mysql -u <username> -p
+```
+
+6. Create a MySQL database.
+
+```bash
+
+CREATE DATABASE <database_name>;
+```
+
+7. Create the tables in the database.
+
+```bash
+php artisan migrate
+```
+
+8. Populate the database
+
+```bash
+php artisan db:seed
+```
+
+9. Start the server locally
+
+```bash
+php artisan serve
+```
+
+## 👥 Contributers
+
+ **[Reem Denini](https://github.com/RD9870)**
+ <br>
+ **[Najah Layas](https://github.com/Najahlayas)**
+
+## ❗ Note
+
+Please note that this repo only contains the backend of the system, you can clone the front end from **[Here](https://github.com/RD9870/TGP-Week-8-Inventory-Management-Frontend)**
