@@ -136,6 +136,7 @@ php artisan serve
  <br>
  **[Najah Layas](https://github.com/Najahlayas)**
 
-## ❗ Note
+## ❗ Notes
 
-Please note that this repo only contains the backend of the system, you can clone the front end from **[Here](https://github.com/RD9870/TGP-Week-8-Inventory-Management-Frontend)**
+- Please note that this repo only contains the backend of the system, you can clone the front end from **[Here](https://github.com/RD9870/TGP-Week-8-Inventory-Management-Frontend)**
+- The Necassery QR codes needed to use the app is in the QR Codes folder
